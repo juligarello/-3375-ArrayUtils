@@ -10,13 +10,22 @@ import java.util.ArrayList;
 
 public class NumberUtils
 {
-    
     /**
      * Comprueba si un número es primo.
      */
     public boolean esPrimo(int n) {
+        if( n == 0 || n == 1)
+            throw new IllegalArgumentException("n y m no puede ser 0 ni 1");
         //TODO: Completar la implementación, reemplazando la línea siguiente
-        return false;
+        boolean primo = true;
+        for (int i= 2 ; i < n ; i++)
+        {
+            if(n % i == 0)
+            {
+                return false;   
+            }
+        }
+        return primo;
     }
     
     /**
@@ -31,8 +40,49 @@ public class NumberUtils
      * Calcula el máximo común divisor de dos números.
      */
     public int maximoComunDivisor(int n, int m) {
+        if( n == 0 || n == 1)
+            throw new IllegalArgumentException("n y m no puede ser 0 ni 1");
+        if( m == 0 || m == 1)
+            throw new IllegalArgumentException("n y m no puede ser 0 ni 1");    
         //TODO: Completar la implementación, reemplazando la línea siguiente
-        return 0;
+        int[] divisores = new int[100];
+        int index = 0;
+        for (int i = 2 ; i < n ; i++)
+        {
+            if (n % i == 0)
+            {
+                divisores[index] = i;
+                index++;
+            }
+        }
+        for (int j = 2 ; j < m ; j++)
+        {
+            if (m % j == 0)
+            {
+                divisores[index] = j;
+                index++;
+            }    
+        }
+        int max = Integer.MIN_VALUE;
+        boolean repetidos = false;
+        for(int y = 0; y < divisores.length ; y++)
+        {
+            for (int x = 1; x < divisores.length ; x++)
+            {
+                if (divisores[x] == divisores[y])
+                {
+                    repetidos = true;
+                    if (repetidos == true && x != y)
+                    {
+                        if(divisores[x] > max)
+                        {
+                            max = divisores[x];                
+                        }
+                    }
+                }    
+            }
+        }
+        return max;
     }
 
     /**
@@ -55,8 +105,20 @@ public class NumberUtils
      * Calcula los primeros n números primos
      */
     public int[] primos(int n) {
+        if( n == 0 || n == 1)
+            throw new IllegalArgumentException("n y m no puede ser 0 ni 1");
         //TODO: Completar la implementación, reemplazando la línea siguiente
-        return null;
+        int[] primo = new int[n];
+        int index = 0;
+        for (int i= 2 ; i < n ; i++)
+        {
+            if(esPrimo(i) == true)
+            {
+                primo[index] = i;
+                index++;
+            }
+        }
+        return primo;
     }
     
     /**
@@ -78,66 +140,165 @@ public class NumberUtils
     /**
      * Calcula el valor mínimo de un arreglo de reales
      */
-    public float minimo(float[] arreglo) {
+    private int minimo(int[] arreglo) {
+        if (arreglo == null)
+            throw new IllegalArgumentException("Arreglo nulo");
         //TODO: Completar la implementación, reemplazando la línea siguiente
-        return 0;
+        int min = Integer.MAX_VALUE;
+        for (int i= 0 ; i < arreglo.length ; i++)
+        {
+            if (min > arreglo[i])
+            {
+                min = arreglo[i];    
+            }
+        }
+        return min;
     }
     
     /**
      * Calcula el valor máximo de un arreglo de reales
      */
-    public float maximo(float[] arreglo) {
+    private int maximo(int[] arreglo) {
+        if (arreglo == null)
+            throw new IllegalArgumentException("Arreglo nulo");
         //TODO: Completar la implementación, reemplazando la línea siguiente
-        return 0;
+        int max = Integer.MIN_VALUE;
+        for (int i= 0 ; i < arreglo.length ; i++)
+        {
+            if (max < arreglo[i])
+            {
+                max = arreglo[i];    
+            }
+        }
+        return max;
     }
     
     
     /**
      * Calcula el valor promedio de un arreglo de reales
      */
-    public float promedio(float[] arreglo) {
+    private float promedio(float[] arreglo) {
+        if (arreglo == null)
+            throw new IllegalArgumentException("Arreglo nulo");
         //TODO: Completar la implementación, reemplazando la línea siguiente
-        return 0;
+        float suma = 0;
+        for (int i= 0 ; i < arreglo.length ; i++)
+        {
+            suma += arreglo[i];
+        }
+        return suma / arreglo.length;
     }
     
     /**
      * Retorna un arreglo con los primeros n números de Fibonacci
      */
-    public int[] fibSequence(int n) {
+    private int[] fibSequence(int n) {
+        if(n == 0)
+            throw new IllegalArgumentException("n no puede ser 0");
         //TODO: Completar la implementación, reemplazando la línea siguiente
-        return null;
+        int[] fib = new int[n]; 
+        int num1 = 0;
+        int num2 = 1;
+        for (int i= 0 ; i < n ; i++)
+        {
+            num2 += num1;
+            fib[i] = num1;
+            num1 = num2;
+            num2 = fib[i];
+        }
+        return fib;
     }
     
     /**
      * Calcula la mediana de un arreglo de reales
      */
-    public float mediana(float[] arreglo) {
+    private float mediana(float[] arreglo) {
+        if (arreglo == null)
+            throw new IllegalArgumentException("Arreglo nulo");
         //TODO: Completar la implementación, reemplazando la línea siguiente
-        return 0;
+        float mediana = 0;
+        if(arreglo.length == 1)
+        {
+            return arreglo[0];
+        }   else if (arreglo.length == 0)
+        {
+            return 0;            
+        }
+        if(arreglo.length % 2 == 0)
+        {
+                mediana = (arreglo [ arreglo.length / 2 ] + arreglo [ (arreglo.length / 2) - 1 ]) / 2;
+        }   else    {
+                mediana = arreglo [arreglo.length / 2];
+        }
+        return mediana;
     }
     
     /**
      * Comprueba si dos arreglos de enteros son iguales
      */
-    public boolean iguales(int[] arr1, int[] arr2) {
+    private boolean iguales(int[] arr1, int[] arr2) {
+        if (arr1 == null || arr2 == null)
+            throw new IllegalArgumentException("Arreglo nulo");
         //TODO: Completar la implementación, reemplazando la línea siguiente
-        return false;
+        boolean iguales = false;
+        for (int i= 0 ; i < arr1.length ; i++)
+        {
+            for(int j= 1 ; j < arr2.length ; j++)
+            {
+                if (i == j && arr1[i] == arr2[j])
+                {
+                    return true;
+                }
+            }
+        }
+        return iguales;
     }
     
     /**
      * Comprueba si un arreglo tiene valores repetidos
      */
-    public boolean tieneRepetidos(int[] arreglo) {
+    private boolean tieneRepetidos(int[] arreglo) {
+        if (arreglo == null)
+            throw new IllegalArgumentException("Arreglo nulo");
         //TODO: Completar la implementación, reemplazando la línea siguiente
-        return false;
+        boolean repetidos = false;
+        for (int i= 0 ; i < arreglo.length ; i++)
+        {
+            for (int j= 1 ; j < arreglo.length ; j++)
+            {
+                if (arreglo[i] == arreglo[j])
+                {
+                     repetidos = true;
+                }
+                if (repetidos == true && i != j)
+                {
+                    return true;
+                }   else    {
+                    repetidos = false;
+                }
+            }
+        }
+        return repetidos;
     }
     
     /**
      * Comprueba si un arreglo tiene dos valores cuya suma dé cero.
      */
-    public boolean tieneOpuestos(float[] arreglo) {
+    private boolean tieneOpuestos(float[] arreglo) {
+        if (arreglo == null)
+            throw new IllegalArgumentException("Arreglo nulo");
         //TODO: Completar la implementación, reemplazando la línea siguiente
-        return false;
+        boolean opuestos = false;
+        for (int i= 0 ; i < arreglo.length ; i++)
+        {
+            for (int j= 1 ; j < arreglo.length ; j++)
+            {
+                if (arreglo[j] + arreglo[i] == 0 && arreglo[j] != 0 && arreglo[i] != 0)
+                {
+                    return true;
+                }
+            }   
+        }
+        return opuestos;
     }
-    
 }

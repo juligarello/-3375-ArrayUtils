@@ -11,8 +11,7 @@ public class ArrayUtils
     /**
      * Comprueba si un elemento (entero) pertenece a un arreglo.
      */
-    public boolean pertenece(int elem, int[] arreglo)
-    {
+    public boolean pertenece(int elem, int[] arreglo) {
         if (arreglo == null)
             throw new IllegalArgumentException("Arreglo nulo");
         //TODO: Completar la implementación, reemplazando la línea siguiente
@@ -96,7 +95,17 @@ public class ArrayUtils
      */
     public int[] fibSequence(int n) {
         //TODO: Completar la implementación, reemplazando la línea siguiente
-        return null;
+        int[] fib = new int[n]; 
+        int num1 = 0;
+        int num2 = 1;
+        for (int i= 0 ; i < n ; i++)
+        {
+            num2 += num1;
+            fib[i] = num1;
+            num1 = num2;
+            num2 = fib[i];
+        }
+        return fib;
     }
     
     /**
@@ -106,7 +115,21 @@ public class ArrayUtils
         if (arreglo == null)
             throw new IllegalArgumentException("Arreglo nulo");
         //TODO: Completar la implementación, reemplazando la línea siguiente
-        return 0;
+        float mediana = 0;
+        if(arreglo.length == 1)
+        {
+            return arreglo[0];
+        }   else if (arreglo.length == 0)
+        {
+            return 0;            
+        }
+        if(arreglo.length % 2 == 0)
+        {
+                mediana = (arreglo [ arreglo.length / 2 ] + arreglo [ (arreglo.length / 2) - 1 ]) / 2;
+        }   else    {
+                mediana = arreglo [arreglo.length / 2];
+        }
+        return mediana;
     }
     
     /**
@@ -116,8 +139,18 @@ public class ArrayUtils
         if (arr1 == null || arr2 == null)
             throw new IllegalArgumentException("Arreglo nulo");
         //TODO: Completar la implementación, reemplazando la línea siguiente
-        
-        return false;
+        boolean iguales = false;
+        for (int i= 0 ; i < arr1.length ; i++)
+        {
+            for(int j= 1 ; j < arr2.length ; j++)
+            {
+                if (i == j && arr1[i] == arr2[j])
+                {
+                    return true;
+                }
+            }
+        }
+        return iguales;
     }
     
     /**
@@ -159,17 +192,11 @@ public class ArrayUtils
         {
             for (int j= 1 ; j < arreglo.length ; j++)
             {
-                if (arreglo[i] == arreglo[j])
-                {
-                     opuestos = true;
-                }
-                if (opuestos == true && i != j)
+                if (arreglo[j] + arreglo[i] == 0 && arreglo[j] != 0 && arreglo[i] != 0)
                 {
                     return true;
-                }   else    {
-                    opuestos = false;
                 }
-            }
+            }   
         }
         return opuestos;
     }
